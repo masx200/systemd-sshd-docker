@@ -270,3 +270,7 @@ openssl passwd -6 "你的密码"
 ```text
 root:$6$随机盐值$加密后的哈希值:1970:0:99999:7:::
 ```
+
+## dpanel文档
+
+https://dpanel.cc/manual/system-env
