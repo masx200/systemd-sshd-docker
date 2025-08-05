@@ -54,6 +54,13 @@ systemd-sshd/
 ./build.sh
 ```
 
+或者
+
+```bash
+docker build -t systemd-sshd:latest .
+```
+
+
 ### 2. 启动容器
 
 ```bash
