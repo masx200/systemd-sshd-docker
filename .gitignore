@@ -19,5 +19,5 @@ known_hosts
 
 authorized_keys
 
-shadow
+#shadow
 password.txt
