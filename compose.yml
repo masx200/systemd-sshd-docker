@@ -1,0 +1,49 @@
+version: "3.8"
+name: systemd-sshd
+services:
+  systemd-sshd:
+    tmpfs:
+      - /run
+      - /tmp
+      - /run/lock
+    restart: always
+    cgroup: host
+    environment:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - LANG=zh_CN.UTF-8
+      - DEBIAN_FRONTEND=noninteractive
+      - EDITOR=nano
+      - TZ=Asia/Shanghai
+    image: systemd-sshd:latest
+    networks:
+      - 1panel-network
+    build:
+      context: .
+      dockerfile: dockerfile
+    container_name: systemd-sshd
+    privileged: true # 允许容器运行 systemd
+    volumes:
+      - "F:/systemd-sshd/debian.sources:/etc/apt/sources.list.d/debian.sources"
+      - "F:/systemd-sshd/sources.list:/etc/apt/sources.list"
+      - "F:/systemd-sshd/etc/shadow:/etc/shadow"
+      - "F:/systemd-sshd/etc/ssh/sshd_config:/etc/ssh/sshd_config"
+      - /sys/fs/cgroup:/sys/fs/cgroup
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/localtime:/etc/localtime
+      - f:/systemd-sshd/root/.ssh/:/root/.ssh/
+      - "F:/systemd-sshd/usr/lib/systemd/system/ssh.service:/usr/lib/systemd/system/ssh.service"
+    ports:
+      - "22222:22" # 可选：映射宿主机2222端口到容器22端口
+    tty: true
+    stdin_open: true
+    command: ["/sbin/init"]
+networks:
+  1panel-network:
+    external: true
+    name: "1panel-network"
+    driver: bridge
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: "172.19.20.0/24"
+        - subnet: "fc01:db8:21::/64"
