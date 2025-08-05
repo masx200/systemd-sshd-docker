@@ -85,7 +85,7 @@ systemd-sshd/
 
 修改配置文件 "compose.yml",
 
-把“F:/systemd-sshd”替换为你的项目"systemd-sshd"所在的绝对路径。
+把"F:/systemd-sshd"替换为你的项目"systemd-sshd-docker"所在的绝对路径。
 
 ### Docker 镜像配置（dockerfile）
 
